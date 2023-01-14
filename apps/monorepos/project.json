@@ -1,0 +1,94 @@
+{
+  "projectType": "application",
+  "root": "apps/monorepos",
+  "sourceRoot": "apps/monorepos/src",
+  "prefix": "monorepos",
+  "targets": {
+    "build": {
+      "executor": "@angular-devkit/build-angular:browser",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/apps/monorepos",
+        "index": "apps/monorepos/src/index.html",
+        "main": "apps/monorepos/src/main.ts",
+        "polyfills": "apps/monorepos/src/polyfills.ts",
+        "tsConfig": "apps/monorepos/tsconfig.app.json",
+        "inlineStyleLanguage": "less",
+        "assets": [
+          "apps/monorepos/src/favicon.ico",
+          "apps/monorepos/src/assets"
+        ],
+        "styles": ["apps/monorepos/src/styles.less"],
+        "scripts": []
+      },
+      "configurations": {
+        "production": {
+          "budgets": [
+            {
+              "type": "initial",
+              "maximumWarning": "500kb",
+              "maximumError": "1mb"
+            },
+            {
+              "type": "anyComponentStyle",
+              "maximumWarning": "2kb",
+              "maximumError": "4kb"
+            }
+          ],
+          "fileReplacements": [
+            {
+              "replace": "apps/monorepos/src/environments/environment.ts",
+              "with": "apps/monorepos/src/environments/environment.prod.ts"
+            }
+          ],
+          "outputHashing": "all"
+        },
+        "development": {
+          "buildOptimizer": false,
+          "optimization": false,
+          "vendorChunk": true,
+          "extractLicenses": false,
+          "sourceMap": true,
+          "namedChunks": true
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "serve": {
+      "executor": "@angular-devkit/build-angular:dev-server",
+      "configurations": {
+        "production": {
+          "browserTarget": "monorepos:build:production"
+        },
+        "development": {
+          "browserTarget": "monorepos:build:development"
+        }
+      },
+      "defaultConfiguration": "development"
+    },
+    "extract-i18n": {
+      "executor": "@angular-devkit/build-angular:extract-i18n",
+      "options": {
+        "browserTarget": "monorepos:build"
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "apps/monorepos/src/**/*.ts",
+          "apps/monorepos/src/**/*.html"
+        ]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/apps/monorepos"],
+      "options": {
+        "jestConfig": "apps/monorepos/jest.config.js",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": []
+}
