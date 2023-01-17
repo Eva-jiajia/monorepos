@@ -1,0 +1,51 @@
+<ng-container [ngSwitch]="type">
+  <!-- mask -->
+  <ng-container *ngSwitchCase="TYPEENUM.MASK">
+    <!-- <p-inputMask [(ngModel)]="value" [mask]="maskValue"></p-inputMask> -->
+  </ng-container>
+
+  <ng-container *ngSwitchDefault>
+    <ng-container [ngSwitch]="icon">
+      <ng-container *ngSwitchCase="ICONENUM.PREFIX">
+        <span class="p-input-icon-left">
+          <ng-container *ngIf="PrefixIconTpl">
+            <ng-template [ngTemplateOutlet]="PrefixIconTpl"></ng-template>
+          </ng-container>
+          <input
+            #inputElement
+            type="{{ type }}"
+            pInputText
+            [ngModel]="value"
+            (ngModelChange)="onChange($event)"
+            [placeholder]="placeholder"
+          />
+        </span>
+      </ng-container>
+      <ng-container *ngSwitchCase="ICONENUM.SUFFIX">
+        <span class="p-input-icon-right">
+          <ng-container *ngIf="SuffixIconTpl">
+            <ng-template [ngTemplateOutlet]="SuffixIconTpl"></ng-template>
+          </ng-container>
+          <input
+            #inputElement
+            type="{{ type }}"
+            pInputText
+            [(ngModel)]="value"
+            [placeholder]="placeholder"
+            (ngModelChange)="onChange($event)"
+          />
+        </span>
+      </ng-container>
+      <ng-container *ngSwitchDefault>
+        <input
+          #inputElement
+          type="{{ type }}"
+          pInputText
+          [(ngModel)]="value"
+          [placeholder]="placeholder"
+          (ngModelChange)="onChange($event)"
+        />
+      </ng-container>
+    </ng-container>
+  </ng-container>
+</ng-container>
